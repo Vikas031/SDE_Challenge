@@ -1,0 +1,17 @@
+
+int helper(int x,int y,vector<int> &arr,vector<vector<int>> &dp){
+	if(x+1==y)
+		return dp[x][y]=0;
+	if(dp[x][y]!=-1)
+		return dp[x][y];
+	int temp=INT_MAX;
+	for(int i=x+1;i<y;i++){
+		temp=min(temp,arr[x]*arr[i]*arr[y]+helper(x,i,arr,dp)+helper(i,y,arr,dp));
+	}
+	return dp[x][y]=temp;
+}
+int matrixMultiplication(vector<int> &arr, int N)
+{
+	vector<vector<int>> dp(N,vector<int> (N,-1));
+    return helper(0,N-1,arr,dp);
+}

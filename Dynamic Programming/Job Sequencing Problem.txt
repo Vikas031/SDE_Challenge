@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+int jobScheduling(vector<vector<int>> &jobs)
+{
+   sort(jobs.begin(),jobs.end());
+   priority_queue<int> pq;
+   int temp=0;
+   for(int i=0;i<jobs.size();i++){
+       int value=-1*jobs[i][1];
+       if(temp<jobs[i][0]){
+           pq.push(value);
+           temp++;
+       }
+       else{
+           if(pq.top()>value){
+               pq.pop();
+               pq.push(value);
+           }
+       }
+   }
+    int sum=0;
+   while(pq.size()>0){
+       sum+=pq.top();
+       pq.pop();
+   }
+    return -1*sum;
+    
+}

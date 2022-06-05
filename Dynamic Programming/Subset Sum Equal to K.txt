@@ -1,0 +1,17 @@
+bool helper(int pos,int k,vector<int> &arr,vector<vector<int>> &dp){
+    if(k==0)
+        return true;
+    if(pos==0)
+        return false;
+    if(dp[pos][k]!=-1)
+        return dp[pos][k];
+    
+    if(arr[pos-1]<=k){
+        return dp[pos][k]=helper(pos-1,k-arr[pos-1],arr,dp)||helper(pos-1,k,arr,dp);
+    }else
+        return dp[pos][k]=helper(pos-1,k,arr,dp);
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    vector<vector<int>> dp(n+1,vector<int> (k+1,-1));
+    return helper(n,k,arr,dp);
+}

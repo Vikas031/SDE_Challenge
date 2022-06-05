@@ -1,0 +1,17 @@
+int maxIncreasingDumbbellsSum(vector<int> &rack, int n)
+{
+	vector<int> dp(n,0);
+    dp[0]=rack[0];
+    int ans=dp[0];
+    for(int i=1;i<n;i++){
+        int temp=rack[i];
+        for(int j=i-1;j>=0;j--){
+            if(rack[j]<rack[i]){
+                temp=max(temp,rack[i]+dp[j]);
+            }
+        }
+        dp[i]=temp;
+        ans=max(temp,ans);
+    }
+    return ans;
+}

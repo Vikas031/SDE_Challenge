@@ -1,0 +1,17 @@
+int N;
+int helper(int pos,int w,vector<int> &value,vector<int> &we,vector<vector<int>> &dp){
+    if(pos==N)
+        return 0;
+    if(dp[pos][w]!=-1)
+        return dp[pos][w];
+    if(we[pos]<=w){
+        return dp[pos][w]=max(value[pos]+helper(pos+1,w-we[pos],value,we,dp),helper(pos+1,w,value,we,dp));
+    }else
+        return dp[pos][w]=helper(pos+1,w,value,we,dp);
+}
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+    N=n;
+    vector<vector<int>> dp(n,vector<int> (w+1,-1));
+    return helper(0,w,values,weights,dp);
+}

@@ -1,0 +1,17 @@
+
+int helper(int n,vector<int> &price,vector<int> &dp){
+    //base case
+    if(n==0)
+        return 0;
+    if(dp[n]!=-1)
+        return dp[n];
+    int temp=0;
+    for(int i=0;i<n;i++){
+        temp=max(temp,price[i]+helper(n-i-1,price,dp));
+    }
+    return dp[n]=temp;
+}
+int cutRod(vector<int> &price, int n){
+    vector<int> dp(n+1,-1);
+    return helper(n,price,dp);
+}

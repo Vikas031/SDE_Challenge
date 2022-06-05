@@ -1,0 +1,21 @@
+int helper(string &a,string &b,int i,int j,vector<vector<int>> &dp){
+    if(i==0)
+        return j;
+    if(j==0)
+        return i;
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    if(a[i-1]==b[j-1])
+        return dp[i][j]=helper(a,b,i-1,j-1,dp);
+    else{
+        //replace /add/delete
+        return dp[i][j]=1+min(helper(a,b,i-1,j-1,dp),min(helper(a,b,i-1,j,dp),helper(a,b,i,j-1,dp)));
+    }
+        
+}
+int editDistance(string str1, string str2)
+{
+    int n=str1.length(),m=str2.length();
+    vector<vector<int>> dp(n+1,vector<int> (m+1,-1));
+    return helper(str1,str2,n,m,dp);
+}

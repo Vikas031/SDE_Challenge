@@ -1,0 +1,25 @@
+int maximumProduct(vector<int> &arr, int n)
+{
+	
+	vector<int> a(n,1);
+	vector<int> b(n,1);
+	a[0]=max(1,arr[0]);
+	b[0]=min(1,arr[0]);
+	int ans=arr[0];
+	for(int i=1;i<n;i++){
+		if(arr[i]==0){
+			a[i]=1;
+			b[i]=1;
+			ans=max(0,ans);
+		}
+		if(arr[i]>0){
+			a[i]=arr[i]*a[i-1];
+			b[i]=min(1,arr[i]*b[i-1]);
+		}else{
+			a[i]=max(1,arr[i]*b[i-1]);
+			b[i]=arr[i]*a[i-1];
+		}
+		ans=max(ans,max(arr[i]*a[i-1],arr[i]*b[i-1]));
+	}
+	return ans;
+}

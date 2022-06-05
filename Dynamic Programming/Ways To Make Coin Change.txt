@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+long dp[11][2001];
+long helper(int *arr,int pos,int val,long dp[11][2001]){
+    if(val==0)
+        return 1;
+    if(pos==0){
+        return 0;
+    }
+    if(dp[pos][val]!=-1)
+        return dp[pos][val];
+    
+    long temp=0;
+    if(arr[pos-1]<=val){
+         //ya to lo
+        temp=helper(arr,pos,val-arr[pos-1],dp);
+        temp+=helper(arr,pos-1,val,dp);
+    }
+    else
+        temp=helper(arr,pos-1,val,dp);
+    
+    return dp[pos][val]=temp;
+}
+long countWaysToMakeChange(int *arr, int n, int value)
+{
+ 
+    memset(dp,-1,sizeof(dp));
+    return helper(arr,n,value,dp);
+}

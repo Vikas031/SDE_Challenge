@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+int n;
+bool helper(int pos,unordered_set<string> &s,string &target,vector<int> &dp){
+    if(pos==n)
+        return true;
+    if(dp[pos]!=-1)
+        return dp[pos];
+    
+    string t;
+    bool temp=false;
+    for(int i=pos;i<n;i++){
+        t+=target[i];
+        if(s.find(t)!=s.end())
+            temp=helper(i+1,s,target,dp);
+        if(temp)
+            return temp;
+    }
+    return dp[pos]=false;
+}
+bool wordBreak(vector < string > & arr, int N, string & target) {
+    n=target.length();
+    unordered_set<string> s;
+    for(auto i:arr){
+        s.insert(i);
+    }
+    
+    vector<int> dp(n,-1);
+    return helper(0,s,target,dp);
+}
