@@ -1,0 +1,20 @@
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+    vector<vector<int>> dp(n+1,vector<int> (n+1,1e9));
+    for(int i=0;i<n+1;i++)
+        dp[i][i]=0;
+    for(auto i:edges){
+        dp[i[0]][i[1]]=i[2];
+    }
+    
+    for(int i=1;i<n+1;i++){
+        for(int j=1;j<n+1;j++){
+            for(int k=1;k<n+1;k++){
+                if(dp[j][i]<1e9&&dp[i][k]<1e9){
+                    dp[j][k]=min(dp[j][k],dp[j][i]+dp[i][k]);
+                }
+            }
+        }
+    }
+    return dp[src][dest];
+    
+}

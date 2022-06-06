@@ -1,0 +1,25 @@
+#include <bits/stdc++.h> 
+long  helper(int n,int m,int x){
+    //base case
+    if(m==1)
+        return n;
+    if(m%2==0){
+        long a=helper(n,m/2,x)%x;
+        return (a*a)%x;
+    }else
+        return (n*helper(n,m-1,x))%x;
+}
+int modularExponentiation(int a, int n, int m) {
+	long x=a;
+    x=x%m;
+    long res=1;
+      if (x == 0) return 0; 
+    while(n>0){
+        if(n&1)
+            res=(res*x)%m;
+        n=n/2;
+        x=(x*x)%m;
+    }
+    return res%m;
+   //return helper(x,n,m)%m;
+}
