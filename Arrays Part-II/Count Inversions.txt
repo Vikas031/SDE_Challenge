@@ -1,0 +1,37 @@
+#include <bits/stdc++.h> 
+long long ans=0;
+vector<int> helper(int low,int high,long long* arr){
+   vector<int> temp(high-low+1);
+    if(low==high)
+    {
+        temp[0]=arr[low];
+        return temp;
+    }
+    
+    int mid=(low+high)/2;
+    vector<int> a=helper(low,mid,arr);
+    vector<int> b=helper(mid+1,high,arr);
+    
+    int i=0;
+    int n=a.size(),m=b.size();
+    int k=0,j=0;
+    while(j<n&&k<m){
+        if(a[j]>b[k]){
+            ans+=n-j;
+            temp[i++]=b[k++];
+        }
+        else
+            temp[i++]=a[j++];  
+    }
+      while(j<n)
+            temp[i++]=a[j++];
+    
+      while(k<m)
+            temp[i++]=b[k++];
+    return temp;
+}
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    helper(0,n-1,arr);
+    return ans;
+}

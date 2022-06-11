@@ -1,0 +1,17 @@
+#include <bits/stdc++.h> 
+#include <vector>
+
+bool findTargetInMatrix(vector < vector < int >> & matrix, int n, int m, int target) {
+    
+        int x=0,y=m-1;
+        while(x<n&&y>=0)
+        {
+            if(matrix[x][y]==target)
+                return true;
+            if(target>matrix[x][y])
+                x=x+1;
+            else
+                y=y-1;
+        }
+        return false;
+}

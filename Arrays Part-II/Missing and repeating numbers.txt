@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	//repeating number
+   int t=1;
+    int i=0;
+    while(i<n){
+        if(arr[i]==i+1)
+            i++;
+        else{
+            if(arr[arr[i]-1]==arr[i]){
+                t=arr[i];
+                break;
+            }else
+                swap(arr[i],arr[arr[i]-1]);
+        }
+    }
+    
+    int sum=0;
+    for(auto i:arr)
+        sum+=i;
+
+    int a=(n*(n+1))/2;
+    pair<int,int> p;
+    a=a-sum;
+    p.first=t+a;
+    p.second=t;
+    return p;
+}

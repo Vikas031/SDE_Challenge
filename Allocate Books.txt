@@ -1,0 +1,40 @@
+bool check(vector<int> &arr,int n,long long m){
+    int t=0;
+    int i=0;
+    long long sum=0;
+    while(i<arr.size()&&t<=n){
+        if(arr[i]>m)
+            return false;
+        sum+=arr[i];
+        if(sum>m){
+            sum=arr[i];
+            t++;
+        }
+        i++;
+    }
+    if(sum!=0)
+    t++;
+    
+    if(t>n)
+        return false;
+    return true;
+}
+long long ayushGivesNinjatest(int n, int m, vector<int> time) 
+{	
+	long long low=0;
+    long long high=0;
+    for(auto i:time)
+        high+=i;
+    long long mid;
+    while(low<high){
+        mid=low+(high-low)/2;
+        
+        if(check(time,n,mid)){
+            high=mid;
+            
+        }
+        else
+            low=mid+1;
+    }
+    return high;
+}

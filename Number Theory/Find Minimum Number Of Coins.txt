@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+
+int findMinimumCoins(int amount) 
+{
+    int arr[] = {1,2,5,10,20,50,100,500,1000};
+    int mincoins=0;
+    for(int i=8;i>=0;i--){
+       if(amount/arr[i]>=1){
+           mincoins+=amount/arr[i];
+           amount=amount%arr[i];
+       }
+        if(amount==0) break;
+    }
+    return mincoins;
+    
+//Method 1 :::
+//     if(amount==0)
+//         return 0;
+//     vector<int> dp(amount+1,1e9);
+//     dp[0]=0;
+//     for(int i=0;i<9&&arr[i]<=amount;i++)
+//         dp[arr[i]]=1;
+    
+//     for(int i=1;i<=amount;i++){
+//         int temp=INT_MAX;
+//         if(dp[i]==1e9){
+//            for(int j=0;j<9&&arr[j]<=i;j++)
+//                temp=min(temp,1+dp[i-arr[j]]);
+//             dp[i]=temp;
+//         }
+//     }
+//     return dp[amount];
+    
+    //Method 2 DP ::
+//         vector<vector<int>> dp(2,vector<int> (amount+1,0));
+//         for(int i=1;i<=amount;i++){
+//             dp[0][i]=1e9;
+//         }
+//         for(int i=1;i<=10;i++){
+//             for(int j=1;j<=amount;j++){
+//                 if(i%2==1){
+//                     if(arr[i-1]<=j)
+//                         dp[1][j]=min(1+dp[1][j-arr[i-1]],dp[0][j]);
+//                     else 
+//                     dp[1][j]=dp[0][j];
+//                 }
+//                 else{
+//                      if(arr[i-1]<=j)
+//                         dp[0][j]=min(1+dp[0][j-arr[i-1]],dp[1][j]);
+//                     else 
+//                     dp[0][j]=dp[1][j];
+//                 }
+//             }
+//         }
+//     return dp[0][amount];
+
+}

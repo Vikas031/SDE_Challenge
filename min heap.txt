@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+
+int t=0;
+void heapify(int i,vector<int> &heap){
+    if(i==0)
+        return ;
+    int par=(i-1)/2;
+    if(heap[par]>heap[i]){
+        swap(heap[par],heap[i]);
+        heapify(par,heap);
+    }
+}
+void deletion(int i,vector<int> &heap){
+    int a=2*i+1,b=2*i+2;
+    if(a<t&&b<t){
+        if(heap[a]<heap[b]){
+            if(heap[a]<heap[i]){
+                swap(heap[a],heap[i]);
+                deletion(a,heap);
+            }
+        }else{
+            if(heap[b]<heap[i]){
+            swap(heap[b],heap[i]);
+            deletion(b,heap);
+            }
+              }
+        }
+      if(a<t&&heap[a]<heap[i]){
+          swap(heap[a],heap[i]);
+           deletion(a,heap);
+      }
+      if(b<t&&heap[b]<heap[i]){
+           swap(heap[b],heap[i]);
+            deletion(b,heap);
+            }
+}
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    //2*i+1,2*i+2
+    vector<int> heap;
+    t=0;
+    vector<int> ans;
+    for(int i=0;i<n;i++){
+       if(q[i][0]==0){
+       heap.push_back(q[i][1]);
+       t++;
+        heapify(heap.size()-1,heap);
+           
+       }else{
+            ans.push_back(heap[0]);
+           swap(heap[0],heap[heap.size()-1]);
+           heap.pop_back();
+           t--;
+           deletion(0,heap);
+          
+       }
+    }    
+    return ans;
+}

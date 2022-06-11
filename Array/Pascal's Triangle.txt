@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+vector<vector<long long int>> printPascal(int numRows) 
+{
+    vector<vector<long long int>> ans;
+        vector<long long int> temp(1,1);
+        ans.push_back(temp);
+        for(int i=0;i<numRows-1;i++)
+        {
+            vector<long long int> temp;
+            temp.push_back(1);
+            int n=ans[i].size();
+            for(int j=0;j<n-1;j++)
+            {
+                temp.push_back(ans[i][j]+ans[i][j+1]);
+            }
+            temp.push_back(1);
+            ans.push_back(temp);
+        }
+        return ans;
+}

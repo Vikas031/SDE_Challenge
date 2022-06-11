@@ -1,0 +1,58 @@
+#include <bits/stdc++.h> 
+vector<int> majorityElementII(vector<int> &arr)
+{
+    // Write your code here.
+//     try boyer moore
+     int n=arr.size();
+    n=n/3;
+    int a=-1,b=-1;
+    int x=0,y=0;
+    for(auto i:arr){
+        if(i==a)
+            x++;
+        else if(i==b)
+            y++;
+        else if(x==0){
+            a=i;
+            x=1;
+        }else if(y==0){
+            b=i;
+            y=1;
+        }else
+        {
+            x--;
+            y--;
+        }
+    }
+    
+    x=0;
+    y=0;
+    for(auto i:arr){
+        if(i==a)
+            x++;
+        else if(i==b)
+            y++;
+    }
+    vector<int> ans;
+    if(x>n)
+        ans.push_back(a);
+    if(y>n)
+        ans.push_back(b);
+    return ans;
+    
+    // by frequency method
+   
+    vector<int> dp;
+    unordered_map<int,int> m;
+    for(auto i:arr){
+        if(m[i]>n)
+            continue;
+        else{
+            m[i]++;
+            if(m[i]>n)
+                dp.push_back(i);
+        }
+    }
+    return dp;
+
+}
