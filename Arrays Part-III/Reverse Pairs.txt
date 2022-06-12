@@ -1,0 +1,41 @@
+#include <bits/stdc++.h> 
+int ans=0;
+vector<int> helper(int x,int j,vector<int> &arr){
+    vector<int> temp(j-x+1);
+    if(x==j)
+    {
+        temp[0]=arr[x];
+        return temp;
+    }
+    int mid=(x+j)/2;
+    vector<int> left=helper(x,mid,arr);
+    vector<int> right=helper(mid+1,j,arr);
+    
+    int n=left.size(),m=right.size();
+    int i=0,a=0,b=0;
+    int k=0;
+    while(a<n&&b<m)
+    {
+        if(right[b]>=left[a]){
+            temp[i]=left[a++];
+        }else{
+            int val=2*right[b];
+            while(k<n&&left[k]<=val)
+                k++;
+            ans+=(n-k);
+            temp[i]=right[b++];
+        }
+        i++;
+    }
+    while(b<m){
+        temp[i++]=right[b++];
+    }
+    while(a<n)
+        temp[i++]=left[a++];
+    return temp;
+}
+int reversePairs(vector<int> &arr, int n){
+	ans=0;
+    vector<int> a=helper(0,arr.size()-1,arr);
+    return ans;
+}
